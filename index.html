@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مساعد — تطبيق المساعدة الذكي لذوي الهمم</title>
+<meta name="description" content="مساعد — تطبيق أندرويد ذكي لمساعدة ذوي الهمم: وضع المكفوفين، وضع الصم، وضع التوحد. يعمل بدون إنترنت بالكامل.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117; --card:#161b22; --card2:#1c2330; --primary:#2f81f7;
+  --accent:#3fb950; --warn:#f0b429; --text:#e6edf3; --muted:#8b949e;
+  --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Cairo',Tahoma,sans-serif;
+  background:radial-gradient(1200px 600px at 80% -10%,rgba(47,129,247,.15),transparent),
+             radial-gradient(900px 500px at 10% 110%,rgba(63,185,80,.10),transparent),
+             var(--bg);
+  color:var(--text); min-height:100vh; line-height:1.7;
+}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* ===== Header ===== */
+header{
+  position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
+  background:rgba(13,17,23,.75);border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.3rem}
+.logo .mark{
+  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--primary),#7c3aed);font-size:1.2rem;
+}
+.nav a{color:var(--muted);text-decoration:none;margin-inline-start:22px;font-size:.95rem;transition:color .2s}
+.nav a:hover{color:var(--text)}
+.lang-btn{
+  background:var(--card2);border:1px solid rgba(255,255,255,.12);color:var(--text);
+  padding:7px 16px;border-radius:99px;cursor:pointer;font-family:inherit;font-weight:700;font-size:.85rem;
+  transition:.2s;
+}
+.lang-btn:hover{border-color:var(--primary)}
+
+/* ===== Hero ===== */
+.hero{text-align:center;padding:90px 20px 60px}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;background:rgba(240,180,41,.12);
+  border:1px solid rgba(240,180,41,.35);color:var(--warn);
+  padding:6px 18px;border-radius:99px;font-size:.85rem;font-weight:700;margin-bottom:26px;
+}
+.hero h1{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:900;line-height:1.25;margin-bottom:18px}
+.hero h1 .grad{background:linear-gradient(90deg,var(--primary),#7c3aed,var(--accent));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:640px;margin:0 auto 36px;color:var(--muted);font-size:1.15rem}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:14px;
+  font-weight:800;font-size:1.05rem;text-decoration:none;transition:.25s;border:none;cursor:pointer;font-family:inherit;
+}
+.btn-primary{background:linear-gradient(135deg,var(--primary),#1f6feb);color:#fff;box-shadow:0 8px 28px rgba(47,129,247,.35)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(47,129,247,.45)}
+.btn-ghost{background:var(--card2);color:var(--text);border:1px solid rgba(255,255,255,.12)}
+.btn-ghost:hover{border-color:var(--primary)}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none!important}
+
+/* ===== Stats ===== */
+.stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;padding:40px 20px 10px}
+.stat{text-align:center}
+.stat .num{font-size:2rem;font-weight:900;color:var(--accent)}
+.stat .lbl{color:var(--muted);font-size:.9rem}
+
+/* ===== Sections ===== */
+section{padding:70px 0}
+.sec-title{text-align:center;font-size:2rem;font-weight:900;margin-bottom:12px}
+.sec-sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 50px}
+
+/* ===== Feature cards ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.card{
+  background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);
+  padding:32px 26px;transition:.25s;position:relative;overflow:hidden;
+}
+.card:hover{transform:translateY(-6px);border-color:rgba(47,129,247,.4)}
+.card .icon{
+  width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:1.6rem;margin-bottom:18px;
+}
+.card h3{font-size:1.25rem;font-weight:800;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.95rem}
+.card ul{margin-top:14px;list-style:none}
+.card li{color:var(--muted);font-size:.9rem;padding:5px 0;display:flex;gap:8px;align-items:flex-start}
+.card li::before{content:"✔";color:var(--accent);font-weight:900}
+
+/* ===== Pillars ===== */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.pillar{
+  background:var(--card2);border-radius:var(--radius);padding:26px;text-align:center;
+  border:1px solid rgba(255,255,255,.06);
+}
+.pillar .big{font-size:2.2rem;margin-bottom:10px}
+.pillar h4{font-weight:800;margin-bottom:6px}
+.pillar p{color:var(--muted);font-size:.88rem}
+
+/* ===== Notify form ===== */
+.notify{
+  background:linear-gradient(135deg,rgba(47,129,247,.12),rgba(124,58,237,.12));
+  border:1px solid rgba(47,129,247,.25);border-radius:24px;padding:50px 30px;text-align:center;
+}
+.notify h2{font-size:1.7rem;font-weight:900;margin-bottom:10px}
+.notify p{color:var(--muted);margin-bottom:28px}
+.form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:520px;margin:0 auto}
+.form input{
+  flex:1;min-width:220px;padding:14px 20px;border-radius:14px;border:1px solid rgba(255,255,255,.15);
+  background:var(--card);color:var(--text);font-family:inherit;font-size:1rem;outline:none;transition:.2s;
+}
+.form input:focus{border-color:var(--primary)}
+.form button{white-space:nowrap}
+#formMsg{margin-top:16px;font-weight:700;color:var(--accent);display:none}
+
+/* ===== Footer ===== */
+footer{border-top:1px solid rgba(255,255,255,.07);padding:34px 20px;text-align:center;color:var(--muted);font-size:.9rem}
+footer .heart{color:#f85149}
+
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hero{padding:60px 16px 40px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo"><span class="mark">🤝</span><span data-i18n="brand">مساعد</span></div>
+    <nav class="nav-links">
+      <a href="#modes" data-i18n="navModes">الأوضاع</a>
+      <a href="#features" data-i18n="navFeatures">المميزات</a>
+      <a href="#notify" data-i18n="navNotify">الإشعارات</a>
+    </nav>
+    <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="badge">🚧 <span data-i18n="badge">نسخة تجريبية — قريباً على أندرويد</span></div>
+  <h1 data-i18n-html="heroTitle">مساعد — <span class="grad">رفيق اليومي</span><br>لذوي الهمم</h1>
+  <p data-i18n="heroSub">تطبيق أندرويد ذكي بثلاث أوضاع مصممة بعناية: إرشاد صوتي للمكفوفين، تحويل كلام لنص للصم، وجداول مرئية وتفاعل لأصحاب التوحد — يعمل بالكامل بدون إنترنت.</p>
+  <div class="cta-row">
+    <button class="btn btn-primary" disabled id="dlBtn">⬇️ <span data-i18n="download">تحميل APK — قريباً</span></button>
+    <a href="#notify" class="btn btn-ghost">🔔 <span data-i18n="notifyBtn">نبّهني عند الإصدار</span></a>
+  </div>
+</div>
+
+<div class="stats container">
+  <div class="stat"><div class="num">3</div><div class="lbl" data-i18n="stat1">أوضاع مخصصة</div></div>
+  <div class="stat"><div class="num">0%</div><div class="lbl" data-i18n="stat2">بحاجة لإنترنت</div></div>
+  <div class="stat"><div class="num">2</div><div class="lbl" data-i18n="stat3">لغتان (عربي / English)</div></div>
+  <div class="stat"><div class="num">3×</div><div class="lbl" data-i18n="stat4">هزّة = استغاثة فورية</div></div>
+</div>
+
+<!-- ===== Modes ===== -->
+<section id="modes">
+  <div class="container">
+    <h2 class="sec-title" data-i18n="modesTitle">ثلاث أوضاع… تطبيق واحد</h2>
+    <p class="sec-sub" data-i18n="modesSub">كل وضع مصمم بالتعاون مع احتياجات مستخدميه، بواجهة بسيطة وألوان مريحة.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="icon" style="background:rgba(47,129,247,.15)">👁️</div>
+        <h3 data-i18n="m1t">وضع المكفوفين</h3>
+        <p data-i18n="m1d">التعرف على المحيط وإرشاد صوتي فوري.</p>
+        <ul>
+          <li data-i18n="m1l1">كشف الأجسام بالكاميرا بتقنية YOLOv8 على الجهاز</li>
+          <li data-i18n="m1l2">وصف صوتي عربي لما حولك</li>
+          <li data-i18n="m1l3">يعمل بدون إنترنت نهائياً</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon" style="background:rgba(63,185,80,.15)">🧏</div>
+        <h3 data-i18n="m2t">وضع الصم</h3>
+        <p data-i18n="m2d">تحويل الكلام لنص وتنبيهات طوارئ.</p>
+        <ul>
+          <li data-i18n="m2l1">استماع مستمر وتحويل الكلام لنص مباشر</li>
+          <li data-i18n="m2l2">اكتب ردك ويتم نطقه بصوت عالي</li>
+          <li data-i18n="m2l3">زر استغاثة SMS مع الموقع</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="icon" style="background:rgba(124,58,237,.15)">🧩</div>
+        <h3 data-i18n="m3t">وضع التوحد وصعوبات التعلم</h3>
+        <p data-i18n="m3d">جداول مرئية وألعاب تفاعلية.</p>
+        <ul>
+          <li data-i18n="m3l1">جدول يومي مرئي بالصور والإيموجي</li>
+          <li data-i18n="m3l2">مكافآت وتشجيع عند إنجاز المهام</li>
+          <li data-i18n="m3l3">ألعاب تسلسل ألوان لتنمية التركيز</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Features ===== -->
+<section id="features" style="padding-top:20px">
+  <div class="container">
+    <h2 class="sec-title" data-i18n="featTitle">ليه مساعد مختلف؟</h2>
+    <p class="sec-sub" data-i18n="featSub">مميزات تقنية حقيقية تشتغل في كل الظروف.</p>
+    <div class="pillars">
+      <div class="pillar"><div class="big">📡❌</div><h4 data-i18n="f1t">بدون إنترنت 100%</h4><p data-i18n="f1d">كل حاجة شغالة offline — الذكاء الاصطناعي على الجهاز نفسه.</p></div>
+      <div class="pillar"><div class="big">🆘</div><h4 data-i18n="f2t">هزّة = استغاثة</h4><p data-i18n="f2d">اهز الموبايل 3 مرات من أي شاشة ويتم إرسال SMS طوارئ مع موقعك.</p></div>
+      <div class="pillar"><div class="big">🧠</div><h4 data-i18n="f3t">ذكاء اصطناعي على الجهاز</h4><p data-i18n="f3d">نموذج YOLOv8 مُحسّن (TensorFlow Lite) — سريع وخفيف على البطارية.</p></div>
+      <div class="pillar"><div class="big">🌍</div><h4 data-i18n="f4t">ثنائي اللغة</h4><p data-i18n="f4d">واجهة عربية وإنجليزية كاملة، يحفظ اختيارك تلقائياً.</p></div>
+      <div class="pillar"><div class="big">🔒</div><h4 data-i18n="f5t">خصوصية تامة</h4><p data-i18n="f5d">لا حسابات، لا سيرفرات، لا تتبع — بياناتك على موبايلك بس.</p></div>
+      <div class="pillar"><div class="big">📱</div><h4 data-i18n="f6t">توافق واسع</h4><p data-i18n="f6d">شغال من أندرويد 8 لحد أندرويد 14.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Notify ===== -->
+<section id="notify">
+  <div class="container">
+    <div class="notify">
+      <h2 data-i18n="nTitle">🔔 عايز تعرف أول ما ننزل؟</h2>
+      <p data-i18n="nSub">سيب إيميلك وهنبعتلك رابط التحميل فور ما الإصدار يكون جاهز.</p>
+      <form class="form" onsubmit="return fakeSubmit(event)">
+        <input type="email" required id="emailInput" data-i18n-ph="nPh" placeholder="بريدك الإلكتروني">
+        <button class="btn btn-primary" type="submit" data-i18n="nBtn">نبّهني</button>
+      </form>
+      <div id="formMsg"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p><strong style="color:var(--text)">🤝 مساعد</strong> — <span data-i18n="foot">تطبيق مساعدة ذكي لذوي الهمم</span></p>
+    <p style="margin-top:8px;font-size:.8rem" data-i18n="footNote">الموقع مؤقت — نسخة أولية للتعريف بالتطبيق أثناء التطوير.</p>
+    <p style="margin-top:14px">© 2026 <span class="heart">❤</span> <span data-i18n="made">صُنع باهتمام لكل إنسان</span></p>
+  </div>
+</footer>
+
+<script>
+const T = {
+  ar: {
+    brand:"مساعد", navModes:"الأوضاع", navFeatures:"المميزات", navNotify:"الإشعارات",
+    badge:"نسخة تجريبية — قريباً على أندرويد",
+    heroTitle:'مساعد — <span class="grad">رفيق اليومي</span><br>لذوي الهمم',
+    heroSub:"تطبيق أندرويد ذكي بثلاث أوضاع مصممة بعناية: إرشاد صوتي للمكفوفين، تحويل كلام لنص للصم، وجداول مرئية وتفاعل لأصحاب التوحد — يعمل بالكامل بدون إنترنت.",
+    download:"تحميل APK — قريباً", notifyBtn:"نبّهني عند الإصدار",
+    stat1:"أوضاع مخصصة", stat2:"بحاجة لإنترنت", stat3:"لغتان (عربي / English)", stat4:"هزّة = استغاثة فورية",
+    modesTitle:"ثلاث أوضاع… تطبيق واحد", modesSub:"كل وضع مصمم بالتعاون مع احتياجات مستخدميه، بواجهة بسيطة وألوان مريحة.",
+    m1t:"وضع المكفوفين", m1d:"التعرف على المحيط وإرشاد صوتي فوري.",
+    m1l1:"كشف الأجسام بالكاميرا بتقنية YOLOv8 على الجهاز", m1l2:"وصف صوتي عربي لما حولك", m1l3:"يعمل بدون إنترنت نهائياً",
+    m2t:"وضع الصم", m2d:"تحويل الكلام لنص وتنبيهات طوارئ.",
+    m2l1:"استماع مستمر وتحويل الكلام لنص مباشر", m2l2:"اكتب ردك ويتم نطقه بصوت عالي", m2l3:"زر استغاثة SMS مع الموقع",
+    m3t:"وضع التوحد وصعوبات التعلم", m3d:"جداول مرئية وألعاب تفاعلية.",
+    m3l1:"جدول يومي مرئي بالصور والإيموجي", m3l2:"مكافآت وتشجيع عند إنجاز المهام", m3l3:"ألعاب تسلسل ألوان لتنمية التركيز",
+    featTitle:"ليه مساعد مختلف؟", featSub:"مميزات تقنية حقيقية تشتغل في كل الظروف.",
+    f1t:"بدون إنترنت 100%", f1d:"كل حاجة شغالة offline — الذكاء الاصطناعي على الجهاز نفسه.",
+    f2t:"هزّة = استغاثة", f2d:"اهز الموبايل 3 مرات من أي شاشة ويتم إرسال SMS طوارئ مع موقعك.",
+    f3t:"ذكاء اصطناعي على الجهاز", f3d:"نموذج YOLOv8 مُحسّن (TensorFlow Lite) — سريع وخفيف على البطارية.",
+    f4t:"ثنائي اللغة", f4d:"واجهة عربية وإنجليزية كاملة، يحفظ اختيارك تلقائياً.",
+    f5t:"خصوصية تامة", f5d:"لا حسابات، لا سيرفرات، لا تتبع — بياناتك على موبايلك بس.",
+    f6t:"توافق واسع", f6d:"شغال من أندرويد 8 لحد أندرويد 14.",
+    nTitle:"🔔 عايز تعرف أول ما ننزل؟", nSub:"سيب إيميلك وهنبعتلك رابط التحميل فور ما الإصدار يكون جاهز.",
+    nPh:"بريدك الإلكتروني", nBtn:"نبّهني", nOk:"تمام! هنبعتلك إيميل أول ما التطبيق يكون جاهز ✅",
+    foot:"تطبيق مساعدة ذكي لذوي الهمم",
+    footNote:"الموقع مؤقت — نسخة أولية للتعريف بالتطبيق أثناء التطوير.",
+    made:"صُنع باهتمام لكل إنسان"
+  },
+  en: {
+    brand:"Mosaed", navModes:"Modes", navFeatures:"Features", navNotify:"Notify Me",
+    badge:"Beta — Coming soon to Android",
+    heroTitle:'Mosaed — <span class="grad">Your Daily Companion</span><br>for People of Determination',
+    heroSub:"A smart Android app with three carefully crafted modes: audio guidance for the blind, speech-to-text for the deaf, and visual schedules & play for autism — works fully offline.",
+    download:"Download APK — Soon", notifyBtn:"Notify Me at Launch",
+    stat1:"Dedicated Modes", stat2:"Internet Required", stat3:"Languages (AR / EN)", stat4:"Shakes = Instant SOS",
+    modesTitle:"Three Modes… One App", modesSub:"Each mode is designed around its users' needs, with a simple interface and calming colors.",
+    m1t:"Blind Mode", m1d:"Environment recognition with instant audio guidance.",
+    m1l1:"Camera object detection with on-device YOLOv8", m1l2:"Arabic audio description of your surroundings", m1l3:"Works completely offline",
+    m2t:"Deaf Mode", m2d:"Speech-to-text and emergency alerts.",
+    m2l1:"Continuous listening with live speech-to-text", m2l2:"Type a reply and have it spoken aloud", m2l3:"Emergency SMS button with location",
+    m3t:"Autism & Learning Difficulties Mode", m3d:"Visual schedules and interactive games.",
+    m3l1:"Daily visual schedule with pictures & emojis", m3l2:"Rewards and encouragement for completed tasks", m3l3:"Color-sequence games to build focus",
+    featTitle:"Why Mosaed is Different", featSub:"Real technical features that work in any situation.",
+    f1t:"100% Offline", f1d:"Everything works offline — AI runs right on the device.",
+    f2t:"Shake = SOS", f2d:"Shake your phone 3 times from any screen to send an emergency SMS with your location.",
+    f3t:"On-Device AI", f3d:"Optimized YOLOv8 model (TensorFlow Lite) — fast and battery-friendly.",
+    f4t:"Bilingual", f4d:"Full Arabic & English interface, remembers your choice automatically.",
+    f5t:"Total Privacy", f5d:"No accounts, no servers, no tracking — your data stays on your phone.",
+    f6t:"Wide Compatibility", f6d:"Runs on Android 8 through Android 14.",
+    nTitle:"🔔 Want to know when we launch?", nSub:"Leave your email and we'll send you the download link as soon as it's ready.",
+    nPh:"Your email address", nBtn:"Notify Me", nOk:"Done! We'll email you as soon as the app is ready ✅",
+    foot:"A smart assistance app for people of determination",
+    footNote:"This is a temporary site — an early showcase while the app is in development.",
+    made:"Made with care for every human"
+  }
+};
+let lang = 'ar';
+function applyLang(){
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('langBtn').textContent = lang === 'ar' ? 'English' : 'عربي';
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if(t[k]) el.textContent = t[k]; });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => { const k = el.dataset.i18nHtml; if(t[k]) el.innerHTML = t[k]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k = el.dataset.i18nPh; if(t[k]) el.placeholder = t[k]; });
+}
+function toggleLang(){ lang = lang === 'ar' ? 'en' : 'ar'; applyLang(); }
+function fakeSubmit(e){
+  e.preventDefault();
+  const msg = document.getElementById('formMsg');
+  msg.textContent = T[lang].nOk;
+  msg.style.display = 'block';
+  document.getElementById('emailInput').value = '';
+  return false;
+}
+applyLang();
+</script>
+</body>
+</html>
